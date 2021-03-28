@@ -1,0 +1,77 @@
+###
+#Add a new checkpoint
+POST http://localhost:8080/addCheckpoint
+Content-Type: application/json
+
+{
+  "checkpointDescription": "New Checkpoint",
+  "taskList": [
+    {
+      "taskDescription": "Meeting With stakeholder",
+      "completed": false
+    }
+  ]
+}
+
+
+
+
+
+###
+#Get all checkpoints
+GET http://localhost:8080/checkpoints
+
+
+
+
+
+###
+#Add a new task to checkpoint
+POST http://localhost:8080/addTask/5
+Content-Type: application/json
+
+{
+  "taskDescription" : "Dummy task",
+  "completed": false
+}
+
+
+
+
+
+###
+#Delete task from a checkpoint - first id is checkpoint and second is task
+DELETE http://localhost:8080/checkpoint/5/4
+
+
+
+
+
+###
+#Delete checkpoint
+DELETE http://localhost:8080/checkpoint/7
+
+
+
+
+
+###
+#update an existing task
+PUT http://localhost:8080/task
+Content-Type: application/json
+
+{
+  "id" : 4,
+  "taskDescription" : "Dummy task",
+  "completed": true
+}
+
+
+
+
+###
+#Get a checkpoint by id
+GET http://localhost:8080/checkpoint/5
+
+<> 2021-03-29T101948-1.200.json
+
