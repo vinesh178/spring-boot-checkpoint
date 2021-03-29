@@ -16,7 +16,11 @@ import javax.swing.text.html.Option;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -95,6 +99,25 @@ public class CheckpointController {
 
     @PutMapping("/task")
     ResponseEntity<String> updateTaskCompletedStatus(@RequestBody @Valid Task newTask) throws CheckpointNotFoundException {
+
+        //Calculate percent complete
+        Optional<Task> task = taskRepository.findById(newTask.getId());
+        long checkpointId = checkpointRepository.findCheckpointByTaskId(newTask.getId());
+        taskRepository.save(newTask);
+        Optional<Checkpoint> checkpoint = checkpointRepository.findById(checkpointId);
+
+        if (checkpoint.isPresent()) {
+            try {
+                long totalTasks = checkpoint.get().getTaskList().size();
+                long completedTasks = checkpoint.get().getTaskList().stream().filter(e -> e.isCompleted()).count();
+                double percentCompleted = ((double) completedTasks / totalTasks) * 100;
+                BigDecimal bd = new BigDecimal(percentCompleted).setScale(2, RoundingMode.HALF_UP);
+                checkpoint.get().setPercentComplete(bd.doubleValue());
+            } catch (Exception e) {
+                checkpoint.get().setPercentComplete(0d);
+            }
+        }
+
         taskRepository.save(newTask);
         return ResponseEntity.ok("Task updated");
 

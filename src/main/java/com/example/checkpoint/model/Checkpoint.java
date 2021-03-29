@@ -22,4 +22,6 @@ public class Checkpoint {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> taskList;
 
+    private double percentComplete;
+
 }

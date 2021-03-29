@@ -8,11 +8,11 @@
         <version>2.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example.checklist</groupId>
-    <artifactId>checklist</artifactId>
+    <groupId>com.example.checkpoint</groupId>
+    <artifactId>checkpoint</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>checklist-project</name>
-    <description>Demo project for Spring Boot</description>
+    <name>checkpoint-project</name>
+    <description>Checkpoint project for lendlease</description>
     <properties>
         <java.version>11</java.version>
     </properties>
